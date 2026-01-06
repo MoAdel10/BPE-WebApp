@@ -1,15 +1,66 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* Brand Colors */
+  --color-background: #091223;
+  --color-background-secondary: #0f1a2e;
+  --color-foreground: #ffffff;
+  --color-foreground-muted: #94a3b8;
+  
+  --color-primary: #0089FF;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #00D3FF;
+  --color-accent: #00e5ff;
+  
+  --color-border: #1e293b;
+  --color-success: #22c55e;
+
+  /* Sharp Glowing Effects - Reduced blur values */
+  --text-glow-cyan: 0 0 8px var(--color-accent);
+  --text-glow-intense: 0 0 12px var(--color-primary), 0 0 2px var(--color-secondary);
+  
+  /* Gradient using your Primary and Secondary only */
+  --bg-gradient-electric: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+
+  --font-heading: "Inter", sans-serif;
+
+  @keyframes electric-pulse {
+    0%, 100% { box-shadow: 0 0 15px rgba(0, 137, 255, 0.3); }
+    50% { box-shadow: 0 0 30px rgba(0, 211, 255, 0.5); }
+  }
 }
 
-html,
-body {
-  @apply bg-white dark:bg-gray-950;
+/* Base utility fixes */
+.text-glow-cyan { text-shadow: var(--text-glow-cyan); }
+.text-glow-intense { text-shadow: var(--text-glow-intense); }
 
-  @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
-  }
+.online-indicator {
+  width: 8px;
+  height: 8px;
+  background-color: var(--color-success);
+  border-radius: 9999px;
+  box-shadow: 0 0 6px var(--color-success);
+}
+.text-glow-cyan {
+  text-shadow: var(--text-glow-cyan);
+}
+
+.text-glow-intense {
+  text-shadow: var(--text-glow-intense);
+}
+
+.electric-border {
+  position: relative;
+  overflow: hidden;
+}
+
+.online-indicator {
+  width: 8px;
+  height: 8px;
+  background-color: var(--color-success);
+  border-radius: 9999px;
+  box-shadow: 0 0 8px var(--color-success);
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }

@@ -1,6 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 export default function Hero() {
+  // Use the API URL from env or fallback to localhost
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+  
+  // Track login status
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Check if the token exists to determine if user is signed in
+    const token = localStorage.getItem("userToken");
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  const handleLogin = () => {
+    // Redirect the browser directly to the backend Steam Auth route
+    window.location.href = `${API_URL}/api/auth/steam`;
+  };
+
   return (
     <>
       <div className="max-w-4xl mx-auto text-center">
@@ -66,24 +85,31 @@ export default function Hero() {
             </svg>
             Join Server
           </button>
-          <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap font-semibold ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-card border border-border text-foreground hover:bg-secondary hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10 h-14 rounded-xl px-10 text-base group cursor-pointer">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="lucide lucide-link w-5 h-5 group-hover:rotate-45 transition-transform"
+          
+          {/* ONLY SHOW THIS BUTTON IF NOT LOGGED IN */}
+          {!isLoggedIn && (
+            <button 
+              onClick={handleLogin}
+              className="inline-flex items-center justify-center gap-2 whitespace-nowrap font-semibold ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-card border border-border text-foreground hover:bg-secondary hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10 h-14 rounded-xl px-10 text-base group cursor-pointer"
             >
-              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
-              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
-            </svg>
-            Link Steam Account
-          </button>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="lucide lucide-link w-5 h-5 group-hover:rotate-45 transition-transform"
+              >
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+              </svg>
+              Link Steam Account
+            </button>
+          )}
         </div>
 
         {/* Stats Grid */}
@@ -91,7 +117,6 @@ export default function Hero() {
           className="grid grid-cols-3 gap-6 sm:gap-10 max-w-xl mx-auto animate-fade-in-up"
           style={{ animationDelay: "0.4s" }}
         >
-          {/* Unique Players */}
           <div className="text-center group">
             <div className="flex items-center justify-center mb-3">
               <div className="p-2.5 bg-primary/10 rounded-lg border border-primary/20 group-hover:border-primary/40 group-hover:bg-primary/15 transition-all duration-300">
@@ -122,7 +147,6 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Total Kills */}
           <div className="text-center group">
             <div className="flex items-center justify-center mb-3">
               <div className="p-2.5 bg-secondary/10 rounded-lg border border-secondary/20 group-hover:border-secondary/40 group-hover:bg-secondary/15 transition-all duration-300">
@@ -157,7 +181,6 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Uptime */}
           <div className="text-center group">
             <div className="flex items-center justify-center mb-3">
               <div className="p-2.5 bg-success/10 rounded-lg border border-success/20 group-hover:border-success/40 group-hover:bg-success/15 transition-all duration-300">

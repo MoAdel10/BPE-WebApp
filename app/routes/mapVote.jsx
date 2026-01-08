@@ -1,7 +1,11 @@
-import React from 'react'
-
+import React from "react";
+import MapVote from "../pages/MapVote";
+import Navbar from "../components/Navbar"
 export default function mapVote() {
   return (
-    <div>mapVote</div>
-  )
+    <>
+      <Navbar></Navbar>
+      <MapVote></MapVote>
+    </>
+  );
 }

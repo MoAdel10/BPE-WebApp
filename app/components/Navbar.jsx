@@ -8,11 +8,14 @@ export default function Navbar() {
   const isMobile = useMediaQuery("(max-width: 768px)");
   const location = useLocation();
 
+
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+
   const [token, setToken] = useState(null);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // 1. Check if we are in the browser and have a token
+   
     const savedToken = localStorage.getItem("userToken");
 
     if (savedToken) {
@@ -115,7 +118,7 @@ export default function Navbar() {
                 </>
               ) : (
                 <a
-                  href="http://localhost:8000/api/auth/steam"
+                  href={`${API_URL}/api/auth/steam`}
                   className="px-6 py-2 bg-gradient-to-r from-primary to-secondary text-primary-foreground text-sm font-bold rounded-lg hover:opacity-90 transition-all shadow-lg shadow-primary/20"
                 >
                   <div className="flex items-center gap-2">
@@ -223,7 +226,6 @@ export default function Navbar() {
               </div>
               <div>
                 <p className="text-sm font-bold text-foreground">My Profile</p>
-                {/* <p className="text-[10px] text-primary">View stats & settings</p> */}
               </div>
             </a>
           )}
@@ -248,10 +250,9 @@ export default function Navbar() {
 
           {!token && (
             <a
-              href="http://localhost:8000/api/auth/steam"
+              href={`${API_URL}/api/auth/steam`}
               className="w-full py-4 bg-gradient-to-r from-primary to-secondary text-primary-foreground text-center font-bold rounded-xl mt-4 shadow-lg shadow-primary/20 flex items-center justify-center gap-2"
               onClick={() => {
-                console.log("Redirecting to Steam...");
                 setMenuOpen(false);
               }}
             >

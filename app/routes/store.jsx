@@ -1,7 +1,12 @@
 import React from 'react'
+import Store from '../pages/Store'
+import Footer from '../components/Footer'
 
 export default function store() {
   return (
-    <div>store</div>
+    <>
+      <Store></Store>
+      <Footer></Footer>
+    </>
   )
 }
